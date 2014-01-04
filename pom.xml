@@ -20,5 +20,11 @@
       <version>4.11</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>org.glassfish.main.extras</groupId>
+      <artifactId>glassfish-embedded-all</artifactId>
+      <version>4.0</version>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
 </project>
