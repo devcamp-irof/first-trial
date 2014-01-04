@@ -29,7 +29,7 @@ public class GlassFishTamer extends ExternalResource {
 
         ScatteredArchive war = new ScatteredArchive(contextRoot, ScatteredArchive.Type.WAR, new File("src/main/webapp"));
         // TODO
-        war.addClassPath(new File("build", "classes"));
+        war.addClassPath(new File("target", "classes"));
 
         glassFish.getDeployer().deploy(war.toURI(), "--contextroot", contextRoot);
     }
