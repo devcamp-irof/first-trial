@@ -1,11 +1,12 @@
 package yohhatu;
 
 import glassfish.GlassFishTamer;
+import org.junit.Before;
 import org.junit.ClassRule;
 import org.junit.Test;
 
-import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.WebTarget;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -13,13 +14,17 @@ import static org.junit.Assert.assertThat;
 public class GreetingTest {
 
     @ClassRule
-    public static GlassFishTamer tamer = new GlassFishTamer("hoge", 8081);
+    public static GlassFishTamer tamer = new GlassFishTamer("app", 8081);
+    private WebTarget target;
+
+    @Before
+    public void setup() {
+        target = ClientBuilder.newClient().target("http://localhost:8081/app/api");
+    }
 
     @Test
     public void test() {
-        Client client = ClientBuilder.newClient();
-        String response = client.target("http://localhost:8081")
-                .path("hoge/api/greeting")
+        String response = target.path("greeting")
                 .request()
                 .get(String.class);
 
@@ -28,9 +33,7 @@ public class GreetingTest {
 
     @Test
     public void testAfternoon() {
-        Client client = ClientBuilder.newClient();
-        String response = client.target("http://localhost:8081")
-                .path("hoge/api/greeting/afternoon")
+        String response = target.path("greeting/afternoon")
                 .request()
                 .get(String.class);
 
