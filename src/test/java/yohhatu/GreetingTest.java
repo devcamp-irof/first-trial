@@ -1,7 +1,7 @@
 package yohhatu;
 
 import glassfish.GlassFishTamer;
-import org.junit.Rule;
+import org.junit.ClassRule;
 import org.junit.Test;
 
 import javax.ws.rs.client.Client;
@@ -12,8 +12,8 @@ import static org.junit.Assert.assertThat;
 
 public class GreetingTest {
 
-    @Rule
-    public GlassFishTamer tamer = new GlassFishTamer("hoge", 8081);
+    @ClassRule
+    public static GlassFishTamer tamer = new GlassFishTamer("hoge", 8081);
 
     @Test
     public void test() {
@@ -24,5 +24,16 @@ public class GreetingTest {
                 .get(String.class);
 
         assertThat(response, is("Hello World!"));
+    }
+
+    @Test
+    public void testAfternoon() {
+        Client client = ClientBuilder.newClient();
+        String response = client.target("http://localhost:8081")
+                .path("hoge/api/greeting/afternoon")
+                .request()
+                .get(String.class);
+
+        assertThat(response, is("Good Evenning!"));
     }
 }
